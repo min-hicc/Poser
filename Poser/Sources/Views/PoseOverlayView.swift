@@ -9,14 +9,12 @@ struct PoseOverlayView: View {
         Canvas { context, size in
             let transform = CoordTransform(canvasSize: size)
             switch mode {
-            case .gesture:
+            case .lines:
                 GestureRenderer(pose: pose, transform: transform).draw(in: context)
-            case .skeleton:
-                SkeletonRenderer(pose: pose, transform: transform).draw(in: context)
-            case .mannequin:
-                MannequinRenderer(pose: pose, transform: transform).draw(in: context)
-            case .construction:
-                ConstructionRenderer(pose: pose, transform: transform).draw(in: context)
+            case .shapes:
+                ShapesRenderer(pose: pose, transform: transform).draw(in: context)
+            case .outline:
+                OutlineRenderer(pose: pose, transform: transform).draw(in: context)
             }
         }
         .allowsHitTesting(false)

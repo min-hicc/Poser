@@ -1,5 +1,7 @@
 import SwiftUI
 
+private let bgColor = Color(red: 0.90, green: 0.90, blue: 0.90)
+
 struct ContentView: View {
     @State private var selectedImage: UIImage?
     @State private var showCamera = false
@@ -8,61 +10,58 @@ struct ContentView: View {
     @StateObject private var detector = PoseDetector()
 
     var body: some View {
+      ZStack {
+        bgColor.ignoresSafeArea()   // backmost layer — fills the whole window
         NavigationStack {
-            ZStack {
-                // Background gradient
-                LinearGradient(
-                    colors: [Color(white: 0.08), Color(white: 0.04)],
-                    startPoint: .top, endPoint: .bottom
-                )
-                .ignoresSafeArea()
-
+            ScrollView {
                 VStack(spacing: 0) {
-                    Spacer()
+                    Spacer().frame(height: 40)
+
 
                     // Hero
                     VStack(spacing: 16) {
-                        Image(systemName: "figure.stand.line.dotted.figure.stand")
-                            .font(.system(size: 64))
-                            .foregroundStyle(
-                                LinearGradient(colors: [.orange, .pink],
-                                               startPoint: .topLeading,
-                                               endPoint: .bottomTrailing)
-                            )
+                        Image("Logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 120, height: 120)
+                            .padding(.top, 60)
 
                         Text("Pose Simplifier")
                             .font(.system(size: 34, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
 
-                        Text("Analyze any body pose into gesture lines,\nskeletons, mannequins, and construction shapes.")
+                        Text("Analyze any body pose into easy anatomy")
                             .font(.subheadline)
-                            .foregroundColor(.white.opacity(0.5))
+                            .foregroundColor(.black)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 32)
-                    }
 
-                    Spacer()
-
-                    // Mode preview pills
-                    HStack(spacing: 8) {
-                        ForEach(DrawingMode.allCases) { mode in
-                            HStack(spacing: 4) {
-                                Image(systemName: mode.icon)
-                                    .font(.caption)
-                                Text(mode.rawValue)
-                                    .font(.caption)
-                                    .fontWeight(.medium)
+                        HStack(spacing: 8) {
+                            ForEach(DrawingMode.allCases) { mode in
+                                HStack(spacing: 4) {
+                                    Image(systemName: mode.icon)
+                                        .font(.caption)
+                                    Text(mode.rawValue)
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                }
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 6)
+                                .background(Color.black.opacity(0.1), in: Capsule())
+                                .foregroundColor(.black)
                             }
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background(Color.white.opacity(0.08), in: Capsule())
-                            .foregroundColor(.white.opacity(0.7))
                         }
                     }
-                    .padding(.bottom, 40)
+
+                    Spacer().frame(height: 140)
 
                     // CTA Buttons
                     VStack(spacing: 12) {
+                        Text("Get Started")
+                            .font(.system(size: 24))
+                            .foregroundColor(.black)
+                            .padding(.bottom, 10)
+
                         Button {
                             guard UIImagePickerController.isSourceTypeAvailable(.camera) else { return }
                             showCamera = true
@@ -71,10 +70,7 @@ struct ContentView: View {
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 16)
-                                .background(
-                                    LinearGradient(colors: [.orange, .pink],
-                                                   startPoint: .leading, endPoint: .trailing)
-                                )
+                                .background(Color(red: 0.30, green: 0.3, blue: 0.3))
                                 .foregroundColor(.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 16))
                         }
@@ -84,7 +80,7 @@ struct ContentView: View {
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 16)
-                                .background(Color.white.opacity(0.1))
+                                .background(Color.black.opacity(0.3))
                                 .foregroundColor(.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 16))
                                 .overlay(
@@ -97,12 +93,16 @@ struct ContentView: View {
                     .padding(.bottom, 48)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(bgColor)
+            .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(isPresented: $navigateToAnalysis) {
                 if let img = selectedImage {
                     AnalysisView(image: img, detector: detector)
                 }
             }
         }
+      } // ZStack
         .sheet(isPresented: $showCamera) {
             ImagePickerView(selectedImage: $selectedImage, sourceType: .camera)
                 .ignoresSafeArea()
@@ -118,4 +118,9 @@ struct ContentView: View {
             }
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .preferredColorScheme(.light)
 }

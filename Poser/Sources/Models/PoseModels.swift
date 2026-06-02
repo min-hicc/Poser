@@ -5,30 +5,39 @@ import Vision
 // MARK: - Drawing Mode
 
 enum DrawingMode: String, CaseIterable, Identifiable {
-    case gesture = "Gesture"
-    case skeleton = "Skeleton"
-    case mannequin = "Mannequin"
-    case construction = "Construction"
+    case lines = "Lines"
+    case shapes = "Shapes"
+    case outline = "Outline"
 
     var id: String { rawValue }
 
     var icon: String {
         switch self {
-        case .gesture:     return "scribble"
-        case .skeleton:    return "figure.stand"
-        case .mannequin:   return "person.crop.rectangle"
-        case .construction: return "square.on.circle"
+        case .lines:     return "scribble"
+        case .shapes:    return "square.on.circle"
+        case .outline:   return "person.crop.rectangle"
         }
     }
 
     var description: String {
         switch self {
-        case .gesture:      return "Line of action"
-        case .skeleton:     return "Stick figure"
-        case .mannequin:    return "3D forms"
-        case .construction: return "Basic shapes"
+        case .lines:      return "Line of action"
+        case .shapes:     return "Stick figure"
+        case .outline:    return "3D forms"
+//        case .construction: return "Basic shapes"
         }
     }
+}
+
+// MARK: - Face features
+
+/// Real facial-feature anchors from VNDetectFaceLandmarksRequest.
+/// All points are normalized to the full image (Vision coords, origin bottom-left).
+struct FaceFeatures: Sendable {
+    var leftEye: CGPoint?
+    var rightEye: CGPoint?
+    var medianTop: CGPoint?     // top of the face centerline
+    var medianBottom: CGPoint?  // bottom of the face centerline
 }
 
 // MARK: - Keypoint
@@ -64,6 +73,21 @@ struct DetectedPose {
     var rightKnee: Keypoint?
     var leftAnkle: Keypoint?
     var rightAnkle: Keypoint?
+
+    // Head bounding box from VNDetectFaceRectanglesRequest.
+    // Normalized, Vision coords (origin bottom-left). nil if no face found.
+    var headBox: CGRect? = nil
+
+    // Person silhouette from VNGeneratePersonSegmentationRequest.
+    // Used to measure the body's true width at each joint. nil if unavailable.
+    var bodyMask: BodyMask? = nil
+
+    // Vectorized silhouette contours from VNDetectContoursRequest.
+    // Each polygon is a list of normalized points (Vision coords). Used for line-art outline.
+    var bodyContours: [[CGPoint]] = []
+
+    // Facial-feature anchors from VNDetectFaceLandmarksRequest. nil if no face.
+    var face: FaceFeatures? = nil
 
     // MARK: Computed helpers
 

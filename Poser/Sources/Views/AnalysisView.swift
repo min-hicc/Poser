@@ -4,10 +4,18 @@ struct AnalysisView: View {
     let image: UIImage
     @ObservedObject var detector: PoseDetector
 
-    @State private var mode: DrawingMode = .skeleton
+    @State private var mode: DrawingMode = .lines
     @State private var overlayOpacity: Double = 1.0
+    @State private var imageOpacity: Double = 1.0
     @State private var showOriginal = false
+    @State private var shareItem: ShareItem?
     @Environment(\.dismiss) private var dismiss
+
+    // Wrapper so we can drive `.sheet(item:)` with a URL.
+    private struct ShareItem: Identifiable {
+        let id = UUID()
+        let url: URL
+    }
 
     var body: some View {
         ZStack {
@@ -28,16 +36,16 @@ struct AnalysisView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                     Spacer()
-                    if let url = exportImageURL() {
-                        ShareLink(item: url) {
-                            Image(systemName: "square.and.arrow.up")
-                                .font(.system(size: 17, weight: .semibold))
-                                .foregroundColor(.white)
-                                .padding(10)
-                                .background(.ultraThinMaterial, in: Circle())
-                        }
+                    Button {
+                        exportForSharing()
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .background(.ultraThinMaterial, in: Circle())
                     }
-
+                    .disabled(detector.pose == nil)
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 8)
@@ -49,10 +57,15 @@ struct AnalysisView: View {
                     let size = fitSize(image: image, in: geo.size)
 
                     ZStack {
+                        // White backdrop so the photo can fade to white.
+                        Color.white
+                            .frame(width: size.width, height: size.height)
+
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
                             .frame(width: size.width, height: size.height)
+                            .opacity(imageOpacity)
 
                         if let pose = detector.pose, !showOriginal {
                             PoseOverlayView(pose: pose, mode: mode)
@@ -92,16 +105,29 @@ struct AnalysisView: View {
                         ModePickerView(selected: $mode)
                             .padding(.horizontal, 16)
 
+                        // Overlay opacity
                         HStack(spacing: 16) {
-                            Label("Opacity", systemImage: "slider.horizontal.3")
+                            Label("Overlay", systemImage: "scribble.variable")
                                 .font(.caption)
                                 .foregroundColor(.white.opacity(0.6))
+                                .frame(width: 80, alignment: .leading)
                             Slider(value: $overlayOpacity, in: 0...1)
                                 .tint(.white)
 
-                            Toggle("", isOn: $showOriginal)
-                                .labelsHidden()
-                                .tint(.orange)
+//                            Toggle("", isOn: $showOriginal)
+//                                .labelsHidden()
+//                                .tint(.orange)
+                        }
+                        .padding(.horizontal, 20)
+
+                        // Photo opacity (fades to the white backdrop)
+                        HStack(spacing: 16) {
+                            Label("Photo", systemImage: "photo")
+                                .font(.caption)
+                                .foregroundColor(.white.opacity(0.6))
+                                .frame(width: 80, alignment: .leading)
+                            Slider(value: $imageOpacity, in: 0...1)
+                                .tint(.white)
                         }
                         .padding(.horizontal, 20)
 
@@ -117,6 +143,9 @@ struct AnalysisView: View {
         }
         .navigationBarHidden(true)
         .onAppear { detector.detect(in: image) }
+        .sheet(item: $shareItem) { item in
+            ShareSheet(items: [item.url])
+        }
     }
 
     // MARK: - Helpers
@@ -128,7 +157,10 @@ struct AnalysisView: View {
         return CGSize(width: imgW * scale, height: imgH * scale)
     }
 
-    private func exportImageURL() -> URL? {
+    /// Renders the image + overlay to a PNG and presents the share sheet.
+    /// Called ONLY when the user taps Share — never during normal rendering.
+    @MainActor
+    private func exportForSharing() {
         let renderer = ImageRenderer(
             content:
                 ZStack {
@@ -143,20 +175,25 @@ struct AnalysisView: View {
                 .frame(width: image.size.width, height: image.size.height)
         )
 
-        renderer.scale = UIScreen.main.scale
+        // image.size is already in native pixels for our frame, so scale 1.0
+        // yields full resolution without the 3x blow-up that was killing perf.
+        renderer.scale = 1.0
 
         guard
             let uiImage = renderer.uiImage,
             let data = uiImage.pngData()
         else {
-            return nil
+            return
         }
 
         let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent("pose.png")
+            .appendingPathComponent("pose-\(UUID().uuidString).png")
 
-        try? data.write(to: url)
-
-        return url
+        do {
+            try data.write(to: url)
+            shareItem = ShareItem(url: url)
+        } catch {
+            // Silently ignore — sharing simply won't open.
+        }
     }
 }

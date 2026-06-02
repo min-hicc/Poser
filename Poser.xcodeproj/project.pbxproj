@@ -16,26 +16,36 @@
 		632FAC5F263AB087E1CD86D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A402174B684C05B966F36 /* ContentView.swift */; };
 		740BDD58DB9CDBD71BA3794F /* PoseDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACE6985BCB416AC1D1F1983 /* PoseDetector.swift */; };
 		7AF9E9F0FE4855A2FCDF8567 /* CoordTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DF011361B01682E2D5127 /* CoordTransform.swift */; };
+		8521AFCC93AC2FDB8B8B1FCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D30AC5275A8B924807595DA /* Assets.xcassets */; };
 		8DBF22C06372F1F9BB3BF981 /* MannequinRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E3CE42FD3BEA988364EB51 /* MannequinRenderer.swift */; };
 		A9DCFE4FB2412FF57411B477 /* ConstructionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD9B3DC2C21723169993FB /* ConstructionRenderer.swift */; };
+		B1C128CC217298D554B3D431 /* BodyMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204E1C430797A8B1E1066871 /* BodyMask.swift */; };
 		B98BBEC9F9EDB3A0806B8004 /* ModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2BFDB130877D89EE1A0E70 /* ModePickerView.swift */; };
+		BBC7D692115983416C08DFDF /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA508DBEE26C02CF700BAF /* ShareSheet.swift */; };
+		CA805DF248AD5907BEE283B7 /* OutlineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5F05CD52219DFB42FA947D /* OutlineRenderer.swift */; };
+		E50B213E88E14F7E443AF1EF /* ShapesRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655CEA68D5D2ED01311A3909 /* ShapesRenderer.swift */; };
 		EBE41D34B9363498934C7422 /* PoseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EE417E5505FC6A49574BDD /* PoseModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04EE417E5505FC6A49574BDD /* PoseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseModels.swift; sourceTree = "<group>"; };
 		0E2BFDB130877D89EE1A0E70 /* ModePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModePickerView.swift; sourceTree = "<group>"; };
+		204E1C430797A8B1E1066871 /* BodyMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMask.swift; sourceTree = "<group>"; };
 		22AD9B3DC2C21723169993FB /* ConstructionRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionRenderer.swift; sourceTree = "<group>"; };
 		317ACCE82E077352610F2CD2 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		34E3CE42FD3BEA988364EB51 /* MannequinRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannequinRenderer.swift; sourceTree = "<group>"; };
 		64D214B3989B6F004B551714 /* PoseOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseOverlayView.swift; sourceTree = "<group>"; };
+		655CEA68D5D2ED01311A3909 /* ShapesRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapesRenderer.swift; sourceTree = "<group>"; };
 		68B4C95221E091D507DCCEC8 /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		7D2DF011361B01682E2D5127 /* CoordTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordTransform.swift; sourceTree = "<group>"; };
+		7D30AC5275A8B924807595DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8A5F05CD52219DFB42FA947D /* OutlineRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineRenderer.swift; sourceTree = "<group>"; };
 		99912DF7FCCBBD1230779D03 /* PoserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoserApp.swift; sourceTree = "<group>"; };
+		9DEA508DBEE26C02CF700BAF /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		AACE6985BCB416AC1D1F1983 /* PoseDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetector.swift; sourceTree = "<group>"; };
 		B4B17FDCF85E531E48A434B1 /* SkeletonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonRenderer.swift; sourceTree = "<group>"; };
 		D1059937B8FDBC9944B5F646 /* GestureRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRenderer.swift; sourceTree = "<group>"; };
-		EA439CA4C1F6EC46A8193FFE /* Poser.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Poser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA439CA4C1F6EC46A8193FFE /* Poser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56A402174B684C05B966F36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -55,6 +65,8 @@
 				7D2DF011361B01682E2D5127 /* CoordTransform.swift */,
 				D1059937B8FDBC9944B5F646 /* GestureRenderer.swift */,
 				34E3CE42FD3BEA988364EB51 /* MannequinRenderer.swift */,
+				8A5F05CD52219DFB42FA947D /* OutlineRenderer.swift */,
+				655CEA68D5D2ED01311A3909 /* ShapesRenderer.swift */,
 				B4B17FDCF85E531E48A434B1 /* SkeletonRenderer.swift */,
 			);
 			path = Rendering;
@@ -68,6 +80,7 @@
 				317ACCE82E077352610F2CD2 /* ImagePickerView.swift */,
 				0E2BFDB130877D89EE1A0E70 /* ModePickerView.swift */,
 				64D214B3989B6F004B551714 /* PoseOverlayView.swift */,
+				9DEA508DBEE26C02CF700BAF /* ShareSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -75,6 +88,7 @@
 		56B5D4928DCF3415F3F9C795 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7D30AC5275A8B924807595DA /* Assets.xcassets */,
 				99912DF7FCCBBD1230779D03 /* PoserApp.swift */,
 				E5F3B2BE9DFFEA63F5B6383E /* Detection */,
 				EDEB9A005DBDC329088D00D3 /* Models */,
@@ -104,6 +118,7 @@
 		EDEB9A005DBDC329088D00D3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				204E1C430797A8B1E1066871 /* BodyMask.swift */,
 				04EE417E5505FC6A49574BDD /* PoseModels.swift */,
 			);
 			path = Models;
@@ -117,6 +132,7 @@
 			buildConfigurationList = DC1E9614693C75B1D9BBFB36 /* Build configuration list for PBXNativeTarget "Poser" */;
 			buildPhases = (
 				E28BD4B33BE7AE664D78A479 /* Sources */,
+				F087C6004A88418F2F061C98 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -137,8 +153,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = F475EAC8FA023A9674C5F444 /* Build configuration list for PBXProject "Poser" */;
 			developmentRegion = en;
@@ -159,12 +173,24 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		F087C6004A88418F2F061C98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8521AFCC93AC2FDB8B8B1FCA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E28BD4B33BE7AE664D78A479 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				452592B50F4AD49EEE030E4D /* AnalysisView.swift in Sources */,
+				B1C128CC217298D554B3D431 /* BodyMask.swift in Sources */,
 				A9DCFE4FB2412FF57411B477 /* ConstructionRenderer.swift in Sources */,
 				632FAC5F263AB087E1CD86D7 /* ContentView.swift in Sources */,
 				7AF9E9F0FE4855A2FCDF8567 /* CoordTransform.swift in Sources */,
@@ -172,10 +198,13 @@
 				2944ADE77D2F0A7E216942F7 /* ImagePickerView.swift in Sources */,
 				8DBF22C06372F1F9BB3BF981 /* MannequinRenderer.swift in Sources */,
 				B98BBEC9F9EDB3A0806B8004 /* ModePickerView.swift in Sources */,
+				CA805DF248AD5907BEE283B7 /* OutlineRenderer.swift in Sources */,
 				740BDD58DB9CDBD71BA3794F /* PoseDetector.swift in Sources */,
 				EBE41D34B9363498934C7422 /* PoseModels.swift in Sources */,
 				236E3DC79A56F54671F713F3 /* PoseOverlayView.swift in Sources */,
 				30E082016B7D351F7F55EA3E /* PoserApp.swift in Sources */,
+				E50B213E88E14F7E443AF1EF /* ShapesRenderer.swift in Sources */,
+				BBC7D692115983416C08DFDF /* ShareSheet.swift in Sources */,
 				1227F412FD4563F30A0CEBEC /* SkeletonRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,13 +217,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = RHKX3Y74YA;
 				INFOPLIST_FILE = Poser/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.poser.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sm.poser.app;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -327,13 +357,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = RHKX3Y74YA;
 				INFOPLIST_FILE = Poser/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.poser.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sm.poser.app;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";

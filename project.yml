@@ -20,6 +20,18 @@ targets:
         excludes: []
     info:
       path: Poser/Info.plist
+      properties:
+        # Empty dict opts the app into native full-screen rendering.
+        # WITHOUT this, iOS letterboxes the app with black bars top & bottom.
+        UILaunchScreen: {}
+        # Required permission strings — the app crashes without these when
+        # opening the camera or photo library.
+        NSCameraUsageDescription: "Poser uses the camera to photograph poses for analysis."
+        NSPhotoLibraryUsageDescription: "Poser accesses your photo library so you can choose a reference photo to analyze."
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.poser.app
