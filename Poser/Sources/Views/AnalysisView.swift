@@ -4,7 +4,7 @@ struct AnalysisView: View {
     let image: UIImage
     @ObservedObject var detector: PoseDetector
 
-    @State private var mode: DrawingMode = .lines
+    @State private var modes: Set<DrawingMode> = [.lines]
     @State private var overlayOpacity: Double = 1.0
     @State private var imageOpacity: Double = 1.0
     @State private var showOriginal = false
@@ -57,8 +57,8 @@ struct AnalysisView: View {
                     let size = fitSize(image: image, in: geo.size)
 
                     ZStack {
-                        // White backdrop so the photo can fade to white.
-                        Color.white
+                        // Gray backdrop so the photo can fade to gray.
+                        Color(white: 0.85)
                             .frame(width: size.width, height: size.height)
 
                         Image(uiImage: image)
@@ -68,7 +68,7 @@ struct AnalysisView: View {
                             .opacity(imageOpacity)
 
                         if let pose = detector.pose, !showOriginal {
-                            PoseOverlayView(pose: pose, mode: mode)
+                            PoseOverlayView(pose: pose, modes: modes)
                                 .frame(width: size.width, height: size.height)
                                 .opacity(overlayOpacity)
                                 .transition(.opacity)
@@ -102,7 +102,7 @@ struct AnalysisView: View {
                 // MARK: Controls
                 if detector.pose != nil {
                     VStack(spacing: 12) {
-                        ModePickerView(selected: $mode)
+                        ModePickerView(selected: $modes)
                             .padding(.horizontal, 16)
 
                         // Overlay opacity
@@ -131,8 +131,8 @@ struct AnalysisView: View {
                         }
                         .padding(.horizontal, 20)
 
-                        // Mode description
-                        Text(mode.description)
+                        // Selected styles (ordered)
+                        Text(selectedSummary)
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.5))
                             .padding(.bottom, 4)
@@ -149,6 +149,14 @@ struct AnalysisView: View {
     }
 
     // MARK: - Helpers
+
+    /// Selected style names in a stable order, or a hint when none are on.
+    private var selectedSummary: String {
+        let ordered = DrawingMode.allCases.filter { modes.contains($0) }
+        return ordered.isEmpty
+            ? "Tap a style to begin"
+            : ordered.map(\.rawValue).joined(separator: " + ")
+    }
 
     private func fitSize(image: UIImage, in available: CGSize) -> CGSize {
         let imgW = image.size.width
@@ -169,7 +177,7 @@ struct AnalysisView: View {
                         .scaledToFit()
 
                     if let pose = detector.pose {
-                        PoseOverlayView(pose: pose, mode: mode)
+                        PoseOverlayView(pose: pose, modes: modes)
                     }
                 }
                 .frame(width: image.size.width, height: image.size.height)

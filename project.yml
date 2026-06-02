@@ -10,6 +10,20 @@ settings:
     SWIFT_VERSION: "5.9"
     TARGETED_DEVICE_FAMILY: "1,2"
 
+packages:
+  SnapshotTesting:
+    url: https://github.com/pointfreeco/swift-snapshot-testing
+    from: 1.17.0
+
+schemes:
+  Poser:
+    build:
+      targets:
+        Poser: all
+    test:
+      targets:
+        - PoserTests
+
 targets:
   Poser:
     type: application
@@ -39,3 +53,19 @@ targets:
         SWIFT_VERSION: "5.9"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     dependencies: []
+
+  PoserTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: PoserTests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.poser.tests
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: "5.9"
+    dependencies:
+      - target: Poser
+      - package: SnapshotTesting
+        product: SnapshotTesting

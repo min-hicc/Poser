@@ -21,9 +21,9 @@ enum DrawingMode: String, CaseIterable, Identifiable {
 
     var description: String {
         switch self {
-        case .lines:      return "Line of action"
-        case .shapes:     return "Stick figure"
-        case .outline:    return "3D forms"
+        case .lines:      return "stick figure line"
+        case .shapes:     return "basic shapes"
+        case .outline:    return "outline of body"
 //        case .construction: return "Basic shapes"
         }
     }

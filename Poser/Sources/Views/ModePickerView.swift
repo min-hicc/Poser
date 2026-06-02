@@ -1,13 +1,17 @@
 import SwiftUI
 
 struct ModePickerView: View {
-    @Binding var selected: DrawingMode
+    @Binding var selected: Set<DrawingMode>
 
     var body: some View {
         HStack(spacing: 0) {
             ForEach(DrawingMode.allCases) { mode in
+                let isOn = selected.contains(mode)
                 Button {
-                    withAnimation(.spring(response: 0.3)) { selected = mode }
+                    withAnimation(.spring(response: 0.3)) {
+                        if isOn { selected.remove(mode) }
+                        else    { selected.insert(mode) }
+                    }
                 } label: {
                     VStack(spacing: 3) {
                         Image(systemName: mode.icon)
@@ -18,10 +22,8 @@ struct ModePickerView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
-                    .background(selected == mode
-                        ? Color.white.opacity(0.15)
-                        : Color.clear)
-                    .foregroundColor(selected == mode ? .white : .white.opacity(0.5))
+                    .background(isOn ? Color.white.opacity(0.15) : Color.clear)
+                    .foregroundColor(isOn ? .white : .white.opacity(0.5))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 .buttonStyle(.plain)

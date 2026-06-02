@@ -265,7 +265,7 @@ struct ShapesRenderer {
 
     private func drawHead(in context: GraphicsContext) {
         let center: CGPoint
-        let radius: CGFloat
+        var radius: CGFloat
 
         if let box = pose.headBox {
             let cs = transform.canvasSize
@@ -279,6 +279,22 @@ struct ShapesRenderer {
             center = CGPoint(x: n.x, y: n.y - radius * 0.3)
         } else {
             return
+        }
+
+        // Keep the circle inside the head silhouette: march from the center
+        // toward the top and sides and shrink the radius if it would poke out.
+        // (Straight down is skipped — that's the neck, not the head edge.)
+        if pose.bodyMask != nil {
+            let dirs: [(CGFloat, CGFloat)] = [
+                (0, -1),                            // top of head
+                (-1, 0), (1, 0),                    // sides
+                (-0.707, -0.707), (0.707, -0.707),  // upper temples
+            ]
+            for (dx, dy) in dirs {
+                if let edge = edgeDistance(from: center, dirX: dx, dirY: dy, maxDist: radius * 1.5) {
+                    radius = min(radius, edge)
+                }
+            }
         }
 
         let rect = CGRect(x: center.x - radius, y: center.y - radius,
