@@ -47,12 +47,17 @@ final class BodyMaskTests: XCTestCase {
     func testSpanFindsLeftAndRightEdges() {
         let mask = hourglassMask()
         // Scan horizontally (perpendicular to a vertical axis) across the waist.
-        let span = mask.span(atNormalized: CGPoint(x: 0.5, y: 0.5),
-                             axis: CGVector(dx: 0, dy: -1))
-        XCTAssertNotNil(span)
-        // At y=0.5 the half-width is ~0.08, so edges ~0.42 and ~0.58.
-        XCTAssertEqual(span!.left.x,  0.42, accuracy: 0.03)
-        XCTAssertEqual(span!.right.x, 0.58, accuracy: 0.03)
+        guard let span = mask.span(atNormalized: CGPoint(x: 0.5, y: 0.5),
+                                   axis: CGVector(dx: 0, dy: -1)) else {
+            return XCTFail("expected a span at the waist")
+        }
+        // At y=0.5 the half-width is ~0.08, so the two edges sit at ~0.42 and
+        // ~0.58 — order them by x since left/right labeling depends on the
+        // perpendicular's sign, not screen position.
+        let edges = [span.left.x, span.right.x].sorted()
+        XCTAssertEqual(edges[0], 0.42, accuracy: 0.03)
+        XCTAssertEqual(edges[1], 0.58, accuracy: 0.03)
+        XCTAssertEqual(span.widthPx / 100.0, 0.16, accuracy: 0.04)
     }
 
     func testSpanNilWhenCenterOffBody() {

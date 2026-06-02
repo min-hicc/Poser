@@ -22,8 +22,8 @@ struct ModePickerView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
-                    .background(isOn ? Color.white.opacity(0.15) : Color.clear)
-                    .foregroundColor(isOn ? .white : .white.opacity(0.5))
+                    .background(isOn ? Color.poserAccent.opacity(0.22) : Color.clear)
+                    .foregroundColor(isOn ? Color.poserAccent : .white.opacity(0.5))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 .buttonStyle(.plain)

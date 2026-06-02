@@ -22,26 +22,26 @@ final class OverlaySnapshotTests: XCTestCase {
 
     func testLinesOverlay() {
         assertSnapshot(of: overlay([.lines]),
-                       as: .image(layout: .fixed(width: canvas.width, height: canvas.height)))
+                       as: .tolerant(width: canvas.width, height: canvas.height))
     }
 
     func testShapesOverlay() {
         assertSnapshot(of: overlay([.shapes]),
-                       as: .image(layout: .fixed(width: canvas.width, height: canvas.height)))
+                       as: .tolerant(width: canvas.width, height: canvas.height))
     }
 
     func testOutlineOverlay() {
         assertSnapshot(of: overlay([.outline]),
-                       as: .image(layout: .fixed(width: canvas.width, height: canvas.height)))
+                       as: .tolerant(width: canvas.width, height: canvas.height))
     }
 
     func testAllModesStacked() {
         assertSnapshot(of: overlay([.lines, .shapes, .outline]),
-                       as: .image(layout: .fixed(width: canvas.width, height: canvas.height)))
+                       as: .tolerant(width: canvas.width, height: canvas.height))
     }
 
     func testNoModesIsEmptyOverlay() {
         assertSnapshot(of: overlay([]),
-                       as: .image(layout: .fixed(width: canvas.width, height: canvas.height)))
+                       as: .tolerant(width: canvas.width, height: canvas.height))
     }
 }

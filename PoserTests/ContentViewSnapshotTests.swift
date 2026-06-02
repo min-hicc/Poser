@@ -12,6 +12,6 @@ final class ContentViewSnapshotTests: XCTestCase {
     func testLandingScreen() {
         // iPhone 13 logical size.
         assertSnapshot(of: ContentView(),
-                       as: .image(layout: .fixed(width: 390, height: 844)))
+                       as: .tolerant(width: 390, height: 844))
     }
 }

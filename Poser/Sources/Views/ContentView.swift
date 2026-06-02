@@ -1,7 +1,7 @@
 import SwiftUI
 import AVFoundation
 
-private let bgColor = Color(red: 0.90, green: 0.90, blue: 0.90)
+private let bgColor = Color(red: 0.92, green: 0.92, blue: 0.92)
 
 struct ContentView: View {
     @State private var selectedImage: UIImage?
@@ -109,7 +109,7 @@ struct ContentView: View {
                 }
                 .padding(.horizontal, 10)
                 .padding(.vertical, 6)
-                .background(Color.black.opacity(0.1), in: Capsule())
+                .background(Color.poserAccent.opacity(0.5), in: Capsule())
                 .foregroundColor(.black)
             }
         }
@@ -129,7 +129,7 @@ struct ContentView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
-                    .background(Color(red: 0.30, green: 0.3, blue: 0.3))
+                    .background(Color.buttonAccent)
                     .foregroundColor(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
@@ -139,7 +139,7 @@ struct ContentView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
-                    .background(Color.black.opacity(0.3))
+                    .background(Color.black.opacity(0.2))
                     .foregroundColor(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .overlay(

@@ -112,7 +112,7 @@ struct AnalysisView: View {
                                 .foregroundColor(.white.opacity(0.6))
                                 .frame(width: 80, alignment: .leading)
                             Slider(value: $overlayOpacity, in: 0...1)
-                                .tint(.white)
+                                .tint(Color.poserAccent)
 
 //                            Toggle("", isOn: $showOriginal)
 //                                .labelsHidden()
@@ -127,7 +127,7 @@ struct AnalysisView: View {
                                 .foregroundColor(.white.opacity(0.6))
                                 .frame(width: 80, alignment: .leading)
                             Slider(value: $imageOpacity, in: 0...1)
-                                .tint(.white)
+                                .tint(Color.poserAccent)
                         }
                         .padding(.horizontal, 20)
 
